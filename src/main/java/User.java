@@ -1,4 +1,5 @@
-import java.util.Date;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 public class User {
     private boolean isMale;
@@ -68,4 +69,23 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    public static class UserCreator {
+
+        public User createUser() {
+            User user = new User();
+            user.setIsMale(RandomUtils.nextBoolean());
+            user.setFirstName(RandomStringUtils.randomAlphabetic(4, 8));
+            user.setLastName(RandomStringUtils.randomAlphabetic(6, 10));
+            user.setPassword(RandomStringUtils.randomAlphanumeric(8));
+            user.setEmail(getEmailPattern());
+            return user;
+        }
+
+        private String getEmailPattern() {
+            Integer rand = RandomUtils.nextInt(0, 99999);
+            return "testmail+" + rand.toString() + "@gmail.com";
+        }
+    }
+
 }
